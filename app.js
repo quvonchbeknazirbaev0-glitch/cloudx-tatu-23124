@@ -9,12 +9,12 @@ import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, do
   4) Firestore Database yarating va firestore.rules faylidagi qoidalarni joylang.
 */
 const firebaseConfig = {
-  apiKey: "BU_YERGA_API_KEY",
-  authDomain: "BU_YERGA_AUTH_DOMAIN",
-  projectId: "BU_YERGA_PROJECT_ID",
-  storageBucket: "BU_YERGA_STORAGE_BUCKET",
-  messagingSenderId: "BU_YERGA_MESSAGING_SENDER_ID",
-  appId: "BU_YERGA_APP_ID"
+  apiKey: "AIzaSyDrgLiVwhwBm_JMkz1q_8_kXSvtfeWWDDw",
+  authDomain: "cloudx-tatu.firebaseapp.com",
+  projectId: "cloudx-tatu",
+  storageBucket: "cloudx-tatu.firebasestorage.app",
+  messagingSenderId: "877252017460",
+  appId: "1:877252017460:web:30b54a6f4e88963ef67961"
 };
 
 const configReady = Object.values(firebaseConfig).every(v => v && !v.startsWith("BU_YERGA"));
