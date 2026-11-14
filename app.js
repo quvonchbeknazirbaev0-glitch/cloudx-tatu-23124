@@ -125,7 +125,6 @@ edit.addEventListener("click", async () => {
     alert("Vazifa yangilandi!");
   } catch (err) {
     alert("Xatolik: " + err.message);
-  }
 });
 
 const del = document.createElement("button");
