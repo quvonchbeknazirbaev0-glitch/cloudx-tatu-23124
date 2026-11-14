@@ -97,9 +97,48 @@ function renderTasks() {
     const meta = document.createElement("div"); meta.className = "task-meta"; meta.textContent = task.dueDate ? "Muddat: " + task.dueDate : "Muddat belgilanmagan";
     main.append(title, meta);
     const priority = document.createElement("span"); priority.className = "priority" + (task.priority === "high" ? " high" : ""); priority.textContent = task.priority === "high" ? "Muhim" : "Oddiy";
-    const del = document.createElement("button"); del.className = "delete"; del.textContent = "O‘chirish";
-    del.addEventListener("click", async () => { if (confirm("Ushbu vazifa o‘chirilsinmi?")) await deleteDoc(doc(db, "tasks", task.id)); });
-    item.append(check, main, priority, del); list.append(item);
+    const edit = document.createElement("button");
+edit.className = "delete";
+edit.textContent = "Tahrirlash";
+
+edit.addEventListener("click", async () => {
+  const newTitle = prompt("Vazifa nomi:", task.title);
+  if (newTitle === null || !newTitle.trim()) return;
+
+  const newDate = prompt("Muddat (YYYY-MM-DD):", task.dueDate || "");
+  if (newDate === null) return;
+
+  const newPriority = prompt("Muhimlik: normal yoki high", task.priority || "normal");
+  if (newPriority === null) return;
+
+  if (!["normal", "high"].includes(newPriority)) {
+    alert("Muhimlik qiymati noto‘g‘ri!");
+    return;
+  }
+
+  try {
+    await updateDoc(doc(db, "tasks", task.id), {
+      title: newTitle.trim(),
+      dueDate: newDate.trim(),
+      priority: newPriority
+    });
+    alert("Vazifa yangilandi!");
+  } catch (err) {
+    alert("Xatolik: " + err.message);
+  }
+});
+
+const del = document.createElement("button");
+del.className = "delete";
+del.textContent = "O‘chirish";
+del.addEventListener("click", async () => {
+  if (confirm("Ushbu vazifa o‘chirilsinmi?")) {
+    await deleteDoc(doc(db, "tasks", task.id));
+  }
+});
+
+item.append(check, main, priority, edit, del);
+list.append(item);
   }
 }
 function friendlyError(err) {
